@@ -8,6 +8,11 @@
     "mocha": "mocha --recursive test",
     "test": "npm run lint && npm run mocha"
   },
+  "homepage": "https://github.com/wassilygraf/testify-dynamodb#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wassilygraf/testify-dynamodb"
+  },
   "author": "Wassily Graf",
   "license": "ISC",
   "dependencies": {
