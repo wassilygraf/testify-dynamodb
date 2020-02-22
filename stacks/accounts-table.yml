@@ -1,0 +1,36 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Accounts table
+
+Resources:
+  AccountsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: accountId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: accountId
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: accountId
+          KeySchema:
+            - AttributeName: accountId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+Outputs:
+  AccountsTable:
+    Value: !Ref AccountsTable
+  AccountsTableArn:
+    Value: !GetAtt AccountsTable.Arn
+  AccountsTableStreamArn:
+    Value: !GetAtt AccountsTable.StreamArn

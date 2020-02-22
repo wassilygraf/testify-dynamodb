@@ -1,0 +1,21 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Referrals Table
+
+Resources:
+  ReferralsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: referralId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: referralId
+          KeyType: HASH
+
+Outputs:
+  ReferralsTable:
+    Value: !Ref ReferralsTable
+  ReferralsTableArn:
+    Value: !GetAtt ReferralsTable.Arn

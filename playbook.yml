@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  gather_facts: no
+
+  environment:
+    AWS_DEFAULT_REGION: eu-west-1
+
+  tasks:
+    - name: Accounts Table
+      cloudformation:
+        stack_name: pyypl-accounts-table
+        template: stacks/accounts-table.yml
+      register: stack_accounts_table
+    - debug:
+        msg: "{{stack_accounts_table.stack_outputs}}"
