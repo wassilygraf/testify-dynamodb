@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports:
+      - "8000:8000"
+
+  tests:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes: 
+      - /node_modules
+      - ./src:/testify-dynamodb/src
+      - ./test:/testify-dynamodb/test
+    environment:
+      - ENDPOINT_URL=dynamodb:8000
+      - AWS_ACCESS_KEY_ID=something
+      - AWS_SECRET_ACCESS_KEY=somethingElse
