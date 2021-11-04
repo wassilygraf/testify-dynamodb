@@ -26,6 +26,7 @@ const dynamodb = new AWS.DynamoDB({
 const FILENAMES = [
   'accounts-table.yml',
   'referrals-table.yml',
+  'foo-table-bar-name.yml',
   'sns-event.yml',
 ];
 
@@ -33,9 +34,13 @@ const STACK_FOLDER = `${__dirname}/../stacks`;
 
 describe('main', () => {
   context('getDynamodbTableDefinitions', () => {
-    it('returns two objects', () => {
+    it('returns two tables using the resource name as a default table name, and one table using the table name property from the config', () => {
       const dynamodbDefintions = getDynamodbTableDefinitions(STACK_FOLDER, FILENAMES);
-      expect(dynamodbDefintions.length).to.equal(2);
+      expect(dynamodbDefintions.length).to.equal(3);
+
+      expect(dynamodbDefintions[0].TableName).to.equal('AccountsTable');
+      expect(dynamodbDefintions[1].TableName).to.equal('ReferralsTable');
+      expect(dynamodbDefintions[2].TableName).to.equal('BarTable');
       expect(dynamodbDefintions[0]).to.be.an('object');
     });
   });

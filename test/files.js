@@ -8,10 +8,10 @@ const {
 
 describe('files', () => {
   context('getStackFileNames', () => {
-    it('returns 3 file names', async () => {
+    it('returns 4 file names', async () => {
       const fileNames = await getStackFileNames(STACKS_FOLDER);
       expect(fileNames).to.be.an('array');
-      expect(fileNames.length).to.equal(3);
+      expect(fileNames.length).to.equal(4);
     });
   });
 });

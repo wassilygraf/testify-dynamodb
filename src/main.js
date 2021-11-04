@@ -26,9 +26,17 @@ const readAndParseFile = (path) => {
   return safeLoad(file, { schema });
 };
 
+const getTableName = (resource, name) => {
+  if (resource.Properties && resource.Properties.TableName) {
+    return resource.Properties.TableName;
+  }
+  return name;
+};
+
 const toDynamoTypes = resources => (acc, name) => {
-  if (resources[name].Type === DYNAMODB_TABLE_TYPE) {
-    acc.push({ ...resources[name], TableName: name });
+  const resource = resources[name];
+  if (resource.Type === DYNAMODB_TABLE_TYPE) {
+    acc.push({ ...resources[name], TableName: getTableName(resources[name], name) });
   }
   return acc;
 };
